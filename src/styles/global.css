@@ -61,42 +61,7 @@
     margin: 0 auto;
     padding: 3.5rem 1.25rem 4.5rem;
   }
-  
-  /* =========================================
-     Navigation
-     ========================================= */
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .brand {
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  
-  nav ul {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0.4rem 0.6rem;
-    border-radius: 10px;
-  }
-  
-  nav a:hover {
-    background: var(--surface);
-    color: var(--text);
-  }
-  
+
   /* =========================================
      Surface / Card
      ========================================= */
@@ -190,3 +155,167 @@
       rgba(34, 211, 238, 0.25)
     );
   }
+
+  /* =========================================
+   Page layout with image support
+   ========================================= */
+
+.page-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.page-content {
+  min-width: 0;
+}
+
+.page-image img {
+  width: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(0.95);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .page-image {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+}
+/* =========================================
+   Wide page support (override narrow main)
+   ========================================= */
+
+   .page-main {
+    max-width: none;
+  }
+    
+  .page-surface {
+    width: 100%;
+    padding-left: clamp(1.25rem, 6vw, 6rem);
+    padding-right: clamp(1.25rem, 6vw, 6rem);
+  }
+
+  /* =========================================
+   Vertical editorial page layout
+   ========================================= */
+
+.page-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.page-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+}
+
+/* =========================================
+   Landing hero typography & hierarchy
+   ========================================= */
+
+   .hero {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+  
+  .hero-content {
+    max-width: none;
+  }
+  
+  /* Kicker refinement */
+  .hero .kicker {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.8rem;
+  }
+  
+  /* Hero headline: strong, senior, commanding */
+  /* Variant A – balanced 
+  .hero h1 {
+    font-size: clamp(3.4rem, 6vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  } */
+
+  /* Variant B – bold */
+  .hero h1 {
+    font-size: clamp(3.8rem, 7vw, 5.4rem);
+    line-height: 1.0;
+    letter-spacing: -0.055em;
+  }
+
+  /* Variant C – restrained 
+  .hero h1 {
+    font-size: clamp(3.0rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  } */
+
+  /* Primary value statement */
+  .hero p:first-of-type {
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.6rem;
+  }
+  
+  /* Secondary explanatory text */
+  .hero p:not(:first-of-type) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: none;
+  }
+  
+  /* CTA spacing */
+  .hero .actions {
+    margin-top: 2.8rem;
+  }
+
+/* =========================================
+   Brand-first header
+   ========================================= */
+
+   .site-header {
+    text-align: center;
+    padding: 3rem 1.25rem 2rem;
+  }
+  
+  .site-title {
+    font-size: clamp(3.2rem, 5vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.9rem;
+  }
+  
+  .site-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .site-nav a {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+  }
+  
+  .site-nav a:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+  ``
