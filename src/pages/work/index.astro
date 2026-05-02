@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const all = await getCollection("work");
+const items = all
+  .filter((e) => (import.meta.env.PROD ? !e.data.draft : true))
+  .sort((a, b) => {
+    const ad = a.data.pubDate ? a.data.pubDate.getTime() : 0;
+    const bd = b.data.pubDate ? b.data.pubDate.getTime() : 0;
+    return bd - ad;
+  });
+---
+
+<BaseLayout title="Work">
+  <h1>Work</h1>
+  <p>Selected engagements and execution frameworks.</p>
+
+  <ul>
+    {items.map((e) => (
+      <li>
+        <a href={`/work/${e.slug}`}>{e.data.title}</a>
+        {e.data.description && <p>{e.data.description}</p>}
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

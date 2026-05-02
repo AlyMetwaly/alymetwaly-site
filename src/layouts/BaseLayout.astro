@@ -1,0 +1,38 @@
+---
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+
+    {description && (
+      <meta name="description" content={description} />
+    )}
+
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="brand">Aly Metwaly</div>
+        <ul>
+          <li><a href="/work">Work</a></li>
+          <li><a href="/insights">Insights</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="surface">
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>
