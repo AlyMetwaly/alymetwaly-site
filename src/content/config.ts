@@ -1,5 +1,7 @@
 import { defineCollection, z } from "astro:content";
 
+console.log("🚨 LOADING NEW CONTENT SCHEMA");
+
 const work = defineCollection({
   type: "content",
   schema: z.object({

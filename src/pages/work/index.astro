@@ -14,14 +14,55 @@ const items = all
 
 <BaseLayout title="Work">
   <h1>Work</h1>
-  <p>Selected engagements and execution frameworks.</p>
+  <p>Selected engagements and execution at enterprise scale.</p>
 
-  <ul>
-    {items.map((e) => (
-      <li>
-        <a href={`/work/${e.slug}`}>{e.data.title}</a>
-        {e.data.description && <p>{e.data.description}</p>}
-      </li>
-    ))}
-  </ul>
+  {/* === Framing & credibility section === */}
+  <section>
+    <p>
+      I bridge the gap between strategy and enterprise-scale execution, with a strong
+      bias toward action and measurable outcomes. My work focuses on designing
+      <strong> operating models</strong> — the integrated systems of people, processes,
+      governance, and technology that turn ambition into repeatable execution at scale.
+    </p>
+
+    <h2>AI transformation — adoption-first execution</h2>
+
+    <p>
+      At Nokia, I design the frameworks required to operationalize AI across large
+      engineering organizations, moving from fragmented use cases to a managed
+      enterprise capability.
+    </p>
+
+    <ul>
+      <li>~45% increase in active usage of AI-supported coding capabilities</li>
+      <li>5× increase in AI-enabled specifications and requirements insights in 8 weeks</li>
+      <li>~1,160 engineering hours unlocked per week (≈31 engineer-years annually)</li>
+      <li>~100:1 return on execution with ~560 hours of non‑BAU effort</li>
+    </ul>
+
+    <h2>Enterprise transformation — performance operating systems</h2>
+
+    <p>
+      Led the rollout of <em>Perform to Win</em>, Nokia’s company-wide shift toward a
+      high-performance culture, embedding continuous goal alignment, feedback, and
+      performance differentiation as a living operating system.
+    </p>
+
+    <h2>Execution foundation</h2>
+
+    <p>
+      Grounded in nearly a decade of experience in highly complex, engineering-led
+      environments, including custom semiconductor development and large-scale R&D
+      programs. Having led 5G processor initiatives, I consistently translate technical
+      complexity into operational clarity.
+    </p>
+
+    <h2>Advisory & investment work</h2>
+
+    <p>
+      Angel investor and advisor (FiBAN), supporting technology founders in translating
+      technical roadmaps into scalable business and operating models.
+    </p>
+  </section>
+  
 </BaseLayout>
