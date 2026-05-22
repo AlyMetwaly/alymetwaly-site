@@ -10,14 +10,56 @@ const items = all
     const bd = b.data.pubDate ? b.data.pubDate.getTime() : 0;
     return bd - ad;
   });
+
+function formatDate(d: Date | undefined) {
+  if (!d) return null;
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
 ---
 
-<BaseLayout title="Work">
-  <h1>Work</h1>
-  <p>Selected engagements and execution at enterprise scale.</p>
+<BaseLayout
+  title="Work — Aly Metwaly"
+  description="Selected engagements, execution patterns, and enterprise-scale AI operating models."
+>
+  <div class="page-lead">
+    <div class="kicker reveal-on-scroll">
+      <span class="kicker-dot"></span>
+      Operating models · adoption · measurable impact
+    </div>
 
-  {/* === Framing & credibility section === */}
-  <section>
+    <h1 class="reveal-on-scroll">Work</h1>
+
+    <p class="reveal-on-scroll">Selected engagements and execution at enterprise scale.</p>
+  </div>
+
+  <section class="reveal-on-scroll" aria-labelledby="work-notes-heading">
+    <h2 id="work-notes-heading">Case notes</h2>
+    {
+      items.length > 0 ? (
+        <ul class="card-grid">
+          {items.map((e) => (
+            <li class="reveal-on-scroll">
+              <a class="content-card" href={`/work/${e.slug}`}>
+                <span class="content-card-title">{e.data.title}</span>
+                {e.data.pubDate ? (
+                  <span class="content-card-meta">
+                    <time datetime={e.data.pubDate.toISOString()}>{formatDate(e.data.pubDate)}</time>
+                  </span>
+                ) : null}
+                {e.data.description ? <p class="content-card-desc">{e.data.description}</p> : null}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="empty-hint">
+          Published case notes will appear here. Drafts stay local until you mark them ready.
+        </p>
+      )
+    }
+  </section>
+
+  <section class="reveal-on-scroll">
     <p>
       I bridge the gap between strategy and enterprise-scale execution, with a strong
       bias toward action and measurable outcomes. My work focuses on designing
@@ -33,7 +75,7 @@ const items = all
       enterprise capability.
     </p>
 
-    <ul>
+    <ul class="plain-list">
       <li>~45% increase in active usage of AI-supported coding capabilities</li>
       <li>5× increase in AI-enabled specifications and requirements insights in 8 weeks</li>
       <li>~1,160 engineering hours unlocked per week (≈31 engineer-years annually)</li>
@@ -57,12 +99,16 @@ const items = all
       complexity into operational clarity.
     </p>
 
-    <h2>Advisory & investment work</h2>
+    <h2>Advisory &amp; investment work</h2>
 
     <p>
       Angel investor and advisor (FiBAN), supporting technology founders in translating
       technical roadmaps into scalable business and operating models.
     </p>
+
+    <div class="actions">
+      <a class="button primary" href="/engagements">Discuss an engagement</a>
+      <a class="button" href="/insights">Read insights</a>
+    </div>
   </section>
-  
 </BaseLayout>

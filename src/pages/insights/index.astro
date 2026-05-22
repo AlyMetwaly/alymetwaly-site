@@ -10,19 +10,47 @@ const items = all
     const bd = b.data.pubDate ? b.data.pubDate.getTime() : 0;
     return bd - ad;
   });
+
+function formatDate(d: Date | undefined) {
+  if (!d) return null;
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
 ---
 
-<BaseLayout title="Insights">
-  <h1>Insights</h1>
-  <p>Essays and frameworks on AI adoption, enablement, and transformation.</p>
+<BaseLayout
+  title="Insights — Aly Metwaly"
+  description="Essays and frameworks on AI adoption, enablement, and transformation."
+>
+  <div class="page-lead">
+    <div class="kicker reveal-on-scroll">
+      <span class="kicker-dot"></span>
+      Essays · frameworks · operating models
+    </div>
 
-  <ul>
-    {items.map((e) => (
-      <li>
-        <a href={`/insights/${e.slug}`}>{e.data.title}</a>
-        {e.data.description && <p>{e.data.description}</p>}
-      </li>
-    ))}
-  </ul>
+    <h1 class="reveal-on-scroll">Insights</h1>
+
+    <p class="reveal-on-scroll">Essays and frameworks on AI adoption, enablement, and transformation.</p>
+  </div>
+
+  {
+    items.length > 0 ? (
+      <ul class="card-grid">
+        {items.map((e) => (
+          <li class="reveal-on-scroll">
+            <a class="content-card" href={`/insights/${e.slug}`}>
+              <span class="content-card-title">{e.data.title}</span>
+              {e.data.pubDate ? (
+                <span class="content-card-meta">
+                  <time datetime={e.data.pubDate.toISOString()}>{formatDate(e.data.pubDate)}</time>
+                </span>
+              ) : null}
+              {e.data.description ? <p class="content-card-desc">{e.data.description}</p> : null}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty-hint reveal-on-scroll">No published insights yet.</p>
+    )
+  }
 </BaseLayout>
-``

@@ -1,4 +1,5 @@
 ---
+import { contactMailtoHref } from "../../config/site";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
@@ -7,8 +8,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   description="Advisory, leadership roles, keynotes, and workshops focused on AI transformation and execution."
 >
   <div class="page-vertical">
-    <!-- IMAGE FIRST -->
-    <div class="page-image">
+    <div class="page-image reveal-on-scroll">
       <img
         src="/images/aly-engagements.jpg"
         alt="Working with leaders and organizations"
@@ -16,81 +16,84 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       />
     </div>
 
-    <!-- TEXT CONTENT -->
     <div class="page-content">
-      <div class="kicker">
+      <div class="kicker reveal-on-scroll">
         <span class="kicker-dot"></span>
         Advisory · Leadership roles · Keynotes · Workshops
       </div>
 
-      <h1>How I work with leaders and organizations</h1>
+      <h1 class="reveal-on-scroll">How I work with leaders and organizations</h1>
 
-      <p>
+      <p class="reveal-on-scroll">
         I work with organizations that are serious about moving AI from experimentation
         to measurable impact. The form of our collaboration can vary, but the focus
         remains constant: clarity of intent, operating model design, and execution
         that holds up under real enterprise constraints.
       </p>
 
-      <h2>Advisory &amp; leadership roles</h2>
+      <h2 class="reveal-on-scroll">Advisory &amp; leadership roles</h2>
 
-      <p>
+      <p class="reveal-on-scroll">
         I engage with leadership teams in advisory, fractional, or full-time roles
         where AI transformation requires sustained ownership rather than isolated
         initiatives.
       </p>
 
-      <ul>
-        <li>Designing AI operating models that scale beyond pilots</li>
-        <li>Clarifying governance, decision rights, and accountability</li>
-        <li>Aligning AI ambition with organizational reality</li>
-        <li>Translating strategy into execution mechanisms</li>
+      <ul class="plain-list">
+        <li class="reveal-on-scroll">Designing AI operating models that scale beyond pilots</li>
+        <li class="reveal-on-scroll">Clarifying governance, decision rights, and accountability</li>
+        <li class="reveal-on-scroll">Aligning AI ambition with organizational reality</li>
+        <li class="reveal-on-scroll">Translating strategy into execution mechanisms</li>
       </ul>
 
-      <h2>Keynotes &amp; leadership sessions</h2>
+      <h2 class="reveal-on-scroll">Keynotes &amp; leadership sessions</h2>
 
-      <p>
+      <p class="reveal-on-scroll">
         I deliver keynotes and leadership sessions for executive and senior audiences
         who want clarity rather than hype. These sessions focus on framing AI as an
         operating model challenge, not a tooling exercise.
       </p>
 
-      <p>
+      <p class="reveal-on-scroll">
         Audiences typically leave with sharper mental models, clearer language,
         and a more grounded basis for decision-making.
       </p>
 
-      <h2>Workshops</h2>
+      <h2 class="reveal-on-scroll">Workshops</h2>
 
-      <p>
+      <p class="reveal-on-scroll">
         Workshops are designed to turn intent into action. They are hands-on,
         context-aware, and grounded in enterprise realities.
       </p>
 
-      <ul>
-        <li>AI adoption in real workflows</li>
-        <li>Operating model and governance design</li>
-        <li>Metrics, ownership, and accountability</li>
-        <li>Moving from pilots to repeatable execution</li>
+      <ul class="plain-list">
+        <li class="reveal-on-scroll">AI adoption in real workflows</li>
+        <li class="reveal-on-scroll">Operating model and governance design</li>
+        <li class="reveal-on-scroll">Metrics, ownership, and accountability</li>
+        <li class="reveal-on-scroll">Moving from pilots to repeatable execution</li>
       </ul>
 
-      <h2>Who this is for</h2>
+      <h2 class="reveal-on-scroll">Who this is for</h2>
 
-      <p>
+      <p class="reveal-on-scroll">
         My work is most relevant for leaders operating in large or complex
         organizations where scale, cost, governance, and risk matter.
       </p>
 
-      <h2>Start a conversation</h2>
+      <h2 class="reveal-on-scroll">Start a conversation</h2>
 
-      <p>
+      <p class="reveal-on-scroll">
         I am open to discussions around leadership roles, advisory engagements,
         keynotes, and workshops.
       </p>
 
-      <div class="actions">
-        <a class="button primary" href="mailto:YOUR_EMAIL@example.com">
+      <div class="actions reveal-on-scroll">
+        <a class="button primary" href={contactMailtoHref}>
           Start a conversation
         </a>
         <a class="button" href="/about">About</a>
         <a class="button" href="/work">See work</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

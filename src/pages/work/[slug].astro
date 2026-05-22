@@ -16,6 +16,29 @@ const { Content } = await entry.render();
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
-  <h1>{entry.data.title}</h1>
-  <Content />
+  <article class="article">
+    {entry.data.pubDate ? (
+      <div class="kicker reveal-on-scroll">
+        <span class="kicker-dot"></span>
+        <time datetime={entry.data.pubDate.toISOString()}>
+          {entry.data.pubDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+      </div>
+    ) : null}
+
+    <h1 class="reveal-on-scroll">{entry.data.title}</h1>
+
+    <div class="reveal-on-scroll">
+      <Content />
+    </div>
+
+    <div class="actions reveal-on-scroll">
+      <a class="button primary" href="/work">More work</a>
+      <a class="button" href="/insights">Insights</a>
+    </div>
+  </article>
 </BaseLayout>
