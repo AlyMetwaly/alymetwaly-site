@@ -16,6 +16,11 @@
   
     --radius: 16px;
     --max-width: 72ch;
+
+    /* Section page heroes (Philosophy, Interests, etc.) — not the home landing hero */
+    --page-hero-title-size: clamp(2.2rem, 4vw, 3.1rem);
+    --page-hero-title-leading: 1.05;
+    --page-hero-title-tracking: -0.03em;
   
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -123,9 +128,9 @@
      ========================================= */
   
   h1 {
-    font-size: clamp(2.2rem, 4vw, 3.1rem);
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-size: var(--page-hero-title-size);
+    letter-spacing: var(--page-hero-title-tracking);
+    line-height: var(--page-hero-title-leading);
     margin: 0 0 1rem;
   }
   
@@ -212,13 +217,6 @@
   min-width: 0;
 }
 
-.page-image img {
-  width: 100%;
-  border-radius: 18px;
-  object-fit: cover;
-  filter: saturate(0.95) contrast(0.95);
-}
-
 /* Responsive */
 @media (max-width: 900px) {
   .page-layout {
@@ -254,11 +252,24 @@
   gap: 3.5rem;
 }
 
-.page-image img {
+/* Shared editorial figures (Engagements hero, Interests sidebar, etc.) */
+.page-figure {
+  margin: 0;
   width: 100%;
-  height: auto;
+  overflow: hidden;
+  border-radius: var(--radius);
+  aspect-ratio: 16 / 10;
+  max-height: min(380px, 52vh);
+}
+
+.page-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
-  border-radius: 18px;
+  border-radius: var(--radius);
+  filter: saturate(0.95) contrast(0.95);
 }
 
 /* =========================================
@@ -420,6 +431,48 @@
     outline: 2px solid rgba(124, 58, 237, 0.85);
     outline-offset: 3px;
     border-radius: 4px;
+  }
+
+  .site-footer-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .site-footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease;
+  }
+
+  .site-footer-social-link:hover {
+    background: var(--surface-hover);
+    border-color: rgba(124, 58, 237, 0.45);
+    color: var(--text);
+  }
+
+  .site-footer-social-link:focus-visible {
+    outline: 2px solid rgba(34, 211, 238, 0.9);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  .site-footer-social-link svg {
+    flex-shrink: 0;
   }
 
   /* =========================================
@@ -634,6 +687,42 @@
   }
 
   /* =========================================
+     Section page hero (Philosophy, Interests, …)
+     Same title scale as document h1; lead copy matches landing hero rhythm.
+     ========================================= */
+
+  .page-hero {
+    max-width: 62ch;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-hero .kicker {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .page-hero h1 {
+    font-size: var(--page-hero-title-size);
+    letter-spacing: var(--page-hero-title-tracking);
+    line-height: var(--page-hero-title-leading);
+  }
+
+  .page-hero p:first-of-type {
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.6rem;
+  }
+
+  .page-hero p:not(:first-of-type) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: none;
+  }
+
+  /* =========================================
      Article (detail pages)
      ========================================= */
 
@@ -725,8 +814,27 @@
     --reveal-delay: 280ms;
   }
 
+  .page-hero .reveal-on-scroll:nth-child(1) {
+    --reveal-delay: 0ms;
+  }
+  .page-hero .reveal-on-scroll:nth-child(2) {
+    --reveal-delay: 70ms;
+  }
+  .page-hero .reveal-on-scroll:nth-child(3) {
+    --reveal-delay: 140ms;
+  }
+  .page-hero .reveal-on-scroll:nth-child(4) {
+    --reveal-delay: 210ms;
+  }
+  .page-hero .reveal-on-scroll:nth-child(5) {
+    --reveal-delay: 280ms;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero .reveal-on-scroll {
+      --reveal-delay: 0ms;
+    }
+    .page-hero .reveal-on-scroll {
       --reveal-delay: 0ms;
     }
   }
