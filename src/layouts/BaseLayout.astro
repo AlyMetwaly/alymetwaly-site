@@ -1,16 +1,14 @@
 ---
 import { contactMailtoHref, site } from "../config/site";
 
-const { title, description } = Astro.props;
+const { title, description, landing = false } = Astro.props;
 const path = Astro.url.pathname;
 
 const nav = [
-  { href: "/about", label: "About" },
-  { href: "/philosophy", label: "Philosophy" },
   { href: "/work", label: "Work" },
-  { href: "/engagements", label: "Engagements" },
+  { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
-  { href: "/interests", label: "Interests" },
+  { href: "/engagements", label: "Engage" },
 ] as const;
 
 function navCurrent(href: string) {
@@ -47,9 +45,17 @@ function navCurrent(href: string) {
     </header>
 
     <main class="page-main">
-      <div class="surface page-surface">
-        <slot />
-      </div>
+      {
+        landing ? (
+          <div class="page-surface landing-surface">
+            <slot />
+          </div>
+        ) : (
+          <div class="surface page-surface">
+            <slot />
+          </div>
+        )
+      }
     </main>
 
     <footer class="site-footer">
@@ -78,7 +84,7 @@ function navCurrent(href: string) {
             </svg>
           </a>
         </div>
-        <span>AI transformation, adoption-first execution, and operating models at enterprise scale.</span>
+        <span>Enterprise AI transformation · Operating models · Measurable impact at scale.</span>
         {" "}
         <a href={contactMailtoHref}>{site.contactEmail}</a>
         {" · "}

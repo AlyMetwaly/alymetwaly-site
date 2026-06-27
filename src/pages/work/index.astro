@@ -5,110 +5,74 @@ import { getCollection } from "astro:content";
 const all = await getCollection("work");
 const items = all
   .filter((e) => (import.meta.env.PROD ? !e.data.draft : true))
-  .sort((a, b) => {
-    const ad = a.data.pubDate ? a.data.pubDate.getTime() : 0;
-    const bd = b.data.pubDate ? b.data.pubDate.getTime() : 0;
-    return bd - ad;
-  });
-
-function formatDate(d: Date | undefined) {
-  if (!d) return null;
-  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-}
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <BaseLayout
-  title="Work — Aly Metwaly"
-  description="Selected engagements, execution patterns, and enterprise-scale AI operating models."
+  title="Case Studies — Aly Metwaly"
+  description="Executive case studies: enterprise AI adoption, operating model design, and performance transformation at scale."
+  landing
 >
-  <div class="page-lead">
-    <div class="kicker reveal-on-scroll">
-      <span class="kicker-dot"></span>
-      Operating models · adoption · measurable impact
-    </div>
+  <div class="work-index">
+    <header class="work-index-hero">
+      <div class="kicker reveal-on-scroll">
+        <span class="kicker-dot"></span>
+        Selected impact · measurable outcomes
+      </div>
 
-    <h1 class="reveal-on-scroll">Work</h1>
+      <h1 class="reveal-on-scroll">Case studies</h1>
 
-    <p class="reveal-on-scroll">Selected engagements and execution at enterprise scale.</p>
+      <p class="work-index-lead reveal-on-scroll">
+        Execution at enterprise scale—operating models, adoption depth, and outcomes
+        leadership can defend in a board review.
+      </p>
+    </header>
+
+    <section aria-labelledby="case-studies-heading">
+      <h2 id="case-studies-heading" class="visually-hidden">Case studies</h2>
+
+      {
+        items.length > 0 ? (
+          <ul class="case-grid work-case-grid">
+            {items.map((entry) => (
+              <li class="reveal-on-scroll">
+                <a class="case-card work-case-card" href={`/work/${entry.slug}`}>
+                  {entry.data.organization ? (
+                    <span class="work-case-org">{entry.data.organization}</span>
+                  ) : null}
+                  <h3 class="case-title">{entry.data.title}</h3>
+                  <p class="case-desc">{entry.data.hook}</p>
+                  <ul class="work-case-metrics" aria-label="Key metrics">
+                    {entry.data.previewMetrics.map((metric) => (
+                      <li>
+                        <span class="work-case-metric-value">{metric.value}</span>
+                        <span class="work-case-metric-label">{metric.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <span class="work-case-cta">Read case study</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="empty-hint">
+            Published case studies will appear here. Drafts stay local until you mark them ready.
+          </p>
+        )
+      }
+    </section>
+
+    <section class="work-index-footer reveal-on-scroll">
+      <p>
+        I design the operating systems that turn enterprise AI ambition into measurable
+        execution—across global engineering organizations, not sandbox pilots.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="/engagements">Discuss an engagement</a>
+        <a class="button" href="/insights">Read insights</a>
+      </div>
+    </section>
   </div>
-
-  <section class="reveal-on-scroll" aria-labelledby="work-notes-heading">
-    <h2 id="work-notes-heading">Case notes</h2>
-    {
-      items.length > 0 ? (
-        <ul class="card-grid">
-          {items.map((e) => (
-            <li class="reveal-on-scroll">
-              <a class="content-card" href={`/work/${e.slug}`}>
-                <span class="content-card-title">{e.data.title}</span>
-                {e.data.pubDate ? (
-                  <span class="content-card-meta">
-                    <time datetime={e.data.pubDate.toISOString()}>{formatDate(e.data.pubDate)}</time>
-                  </span>
-                ) : null}
-                {e.data.description ? <p class="content-card-desc">{e.data.description}</p> : null}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="empty-hint">
-          Published case notes will appear here. Drafts stay local until you mark them ready.
-        </p>
-      )
-    }
-  </section>
-
-  <section class="reveal-on-scroll">
-    <p>
-      I bridge the gap between strategy and enterprise-scale execution, with a strong
-      bias toward action and measurable outcomes. My work focuses on designing
-      <strong> operating models</strong> — the integrated systems of people, processes,
-      governance, and technology that turn ambition into repeatable execution at scale.
-    </p>
-
-    <h2>AI transformation — adoption-first execution</h2>
-
-    <p>
-      At Nokia, I design the frameworks required to operationalize AI across large
-      engineering organizations, moving from fragmented use cases to a managed
-      enterprise capability.
-    </p>
-
-    <ul class="plain-list">
-      <li>~45% increase in active usage of AI-supported coding capabilities</li>
-      <li>5× increase in AI-enabled specifications and requirements insights in 8 weeks</li>
-      <li>~1,160 engineering hours unlocked per week (≈31 engineer-years annually)</li>
-      <li>~100:1 return on execution with ~560 hours of non‑BAU effort</li>
-    </ul>
-
-    <h2>Enterprise transformation — performance operating systems</h2>
-
-    <p>
-      Led the rollout of <em>Perform to Win</em>, Nokia’s company-wide shift toward a
-      high-performance culture, embedding continuous goal alignment, feedback, and
-      performance differentiation as a living operating system.
-    </p>
-
-    <h2>Execution foundation</h2>
-
-    <p>
-      Grounded in nearly a decade of experience in highly complex, engineering-led
-      environments, including custom semiconductor development and large-scale R&D
-      programs. Having led 5G processor initiatives, I consistently translate technical
-      complexity into operational clarity.
-    </p>
-
-    <h2>Advisory &amp; investment work</h2>
-
-    <p>
-      Angel investor and advisor (FiBAN), supporting technology founders in translating
-      technical roadmaps into scalable business and operating models.
-    </p>
-
-    <div class="actions">
-      <a class="button primary" href="/engagements">Discuss an engagement</a>
-      <a class="button" href="/insights">Read insights</a>
-    </div>
-  </section>
 </BaseLayout>

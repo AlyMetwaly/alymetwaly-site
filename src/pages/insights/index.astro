@@ -1,56 +1,86 @@
 ---
+import { executive } from "../../config/executive";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const all = await getCollection("insights");
-const items = all
-  .filter((e) => (import.meta.env.PROD ? !e.data.draft : true))
-  .sort((a, b) => {
-    const ad = a.data.pubDate ? a.data.pubDate.getTime() : 0;
-    const bd = b.data.pubDate ? b.data.pubDate.getTime() : 0;
-    return bd - ad;
-  });
+const { insights: insightsConfig } = executive;
 
-function formatDate(d: Date | undefined) {
-  if (!d) return null;
-  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-}
+const all = await getCollection("insights");
+const published = all
+  .filter((e) => (import.meta.env.PROD ? !e.data.draft : true))
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const byCategory = insightsConfig.categories.map((cat) => ({
+  ...cat,
+  items: published.filter((e) => e.data.category === cat.label),
+}));
 ---
 
 <BaseLayout
-  title="Insights — Aly Metwaly"
-  description="Essays and frameworks on AI adoption, enablement, and transformation."
+  title={insightsConfig.meta.title}
+  description={insightsConfig.meta.description}
+  landing
 >
-  <div class="page-lead">
-    <div class="kicker reveal-on-scroll">
-      <span class="kicker-dot"></span>
-      Essays · frameworks · operating models
-    </div>
+  <div class="exec-landing insights-hub">
+    <!-- 1. Title + positioning -->
+    <section class="exec-section exec-hero insights-opening" aria-labelledby="insights-title">
+      <div class="kicker reveal-on-scroll">
+        <span class="kicker-dot"></span>
+        {insightsConfig.kicker}
+      </div>
 
-    <h1 class="reveal-on-scroll">Insights</h1>
+      <h1 id="insights-title" class="reveal-on-scroll">{insightsConfig.title}</h1>
 
-    <p class="reveal-on-scroll">Essays and frameworks on AI adoption, enablement, and transformation.</p>
+      {
+        insightsConfig.intro.lines.map((line, i) => (
+          <p class:list={["reveal-on-scroll", i === 0 && "exec-lead"]}>{line}</p>
+        ))
+      }
+    </section>
+
+    <!-- 2. Content categories + article cards -->
+    {
+      byCategory.map((category) => (
+        <section
+          class="exec-section insights-category"
+          aria-labelledby={`insights-cat-${category.id}`}
+        >
+          <h2 id={`insights-cat-${category.id}`} class="insights-category-heading reveal-on-scroll">
+            {category.label}
+          </h2>
+
+          <p class="insights-category-definition reveal-on-scroll">{category.definition}</p>
+
+          {
+            category.items.length > 0 ? (
+              <ul class="insight-card-grid">
+                {category.items.map((entry) => (
+                  <li class="reveal-on-scroll">
+                    <a class="insight-card" href={`/insights/${entry.slug}`}>
+                      <span class="insight-card-category">{entry.data.category}</span>
+                      <h3 class="insight-card-title">{entry.data.title}</h3>
+                      <p class="insight-card-preview">{entry.data.preview}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="insights-empty reveal-on-scroll">No insights in this category yet.</p>
+            )
+          }
+        </section>
+      ))
+    }
+
+    <section class="exec-section insights-footer" aria-label="Next steps">
+      <p class="insights-footer-lead reveal-on-scroll">
+        For operating model design, executive advisory, and leadership sessions—see engagements.
+      </p>
+
+      <div class="actions reveal-on-scroll">
+        <a class="button primary" href="/engagements">Discuss AI transformation</a>
+        <a class="button" href="/work">View case studies</a>
+      </div>
+    </section>
   </div>
-
-  {
-    items.length > 0 ? (
-      <ul class="card-grid">
-        {items.map((e) => (
-          <li class="reveal-on-scroll">
-            <a class="content-card" href={`/insights/${e.slug}`}>
-              <span class="content-card-title">{e.data.title}</span>
-              {e.data.pubDate ? (
-                <span class="content-card-meta">
-                  <time datetime={e.data.pubDate.toISOString()}>{formatDate(e.data.pubDate)}</time>
-                </span>
-              ) : null}
-              {e.data.description ? <p class="content-card-desc">{e.data.description}</p> : null}
-            </a>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="empty-hint reveal-on-scroll">No published insights yet.</p>
-    )
-  }
 </BaseLayout>

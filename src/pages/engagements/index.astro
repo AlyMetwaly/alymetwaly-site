@@ -1,100 +1,98 @@
 ---
+import { executive } from "../../config/executive";
 import { contactMailtoHref } from "../../config/site";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const { engagements } = executive;
 ---
 
 <BaseLayout
-  title="Engagements — Aly Metwaly"
-  description="Advisory, leadership roles, keynotes, and workshops focused on AI transformation and execution."
+  title={engagements.meta.title}
+  description={engagements.meta.description}
+  landing
 >
-  <div class="page-vertical">
-    <figure class="page-image page-figure reveal-on-scroll">
-      <img
-        src="/images/aly-engagements.jpg"
-        alt="Working with leaders and organizations"
-        loading="lazy"
-        decoding="async"
-      />
-    </figure>
-
-    <div class="page-content">
+  <div class="exec-landing engagements-doc">
+    <!-- 1. Title -->
+    <section class="exec-section exec-hero engagements-opening" aria-labelledby="engagements-title">
       <div class="kicker reveal-on-scroll">
         <span class="kicker-dot"></span>
-        Advisory · Leadership roles · Keynotes · Workshops
+        {engagements.kicker} · {executive.regions}
       </div>
 
-      <h1 class="reveal-on-scroll">How I work with leaders and organizations</h1>
+      <h1 id="engagements-title" class="reveal-on-scroll">{engagements.title}</h1>
 
-      <p class="reveal-on-scroll">
-        I work with organizations that are serious about moving AI from experimentation
-        to measurable impact. The form of our collaboration can vary, but the focus
-        remains constant: clarity of intent, operating model design, and execution
-        that holds up under real enterprise constraints.
-      </p>
+      {
+        engagements.intro.lines.map((line, i) => (
+          <p class:list={["reveal-on-scroll", i === 0 && "exec-lead"]}>{line}</p>
+        ))
+      }
+    </section>
 
-      <h2 class="reveal-on-scroll">Advisory &amp; leadership roles</h2>
+    <!-- 2. Types of engagements -->
+    <section class="exec-section" aria-labelledby="engagements-types">
+      <h2 id="engagements-types" class="exec-inline-heading reveal-on-scroll">
+        {engagements.types.heading}
+      </h2>
 
-      <p class="reveal-on-scroll">
-        I engage with leadership teams in advisory, fractional, or full-time roles
-        where AI transformation requires sustained ownership rather than isolated
-        initiatives.
-      </p>
-
-      <ul class="plain-list">
-        <li class="reveal-on-scroll">Designing AI operating models that scale beyond pilots</li>
-        <li class="reveal-on-scroll">Clarifying governance, decision rights, and accountability</li>
-        <li class="reveal-on-scroll">Aligning AI ambition with organizational reality</li>
-        <li class="reveal-on-scroll">Translating strategy into execution mechanisms</li>
+      <ul class="about-engagement-grid">
+        {
+          engagements.types.items.map(({ label, body }) => (
+            <li class="about-engagement-card reveal-on-scroll">
+              <h3 class="about-engagement-label">{label}</h3>
+              <p>{body}</p>
+            </li>
+          ))
+        }
       </ul>
+    </section>
 
-      <h2 class="reveal-on-scroll">Keynotes &amp; leadership sessions</h2>
+    <!-- 3. What clients get -->
+    <section class="exec-section" aria-labelledby="engagements-outcomes">
+      <h2 id="engagements-outcomes" class="exec-inline-heading reveal-on-scroll">
+        {engagements.whatClientsGet.heading}
+      </h2>
 
-      <p class="reveal-on-scroll">
-        I deliver keynotes and leadership sessions for executive and senior audiences
-        who want clarity rather than hype. These sessions focus on framing AI as an
-        operating model challenge, not a tooling exercise.
-      </p>
-
-      <p class="reveal-on-scroll">
-        Audiences typically leave with sharper mental models, clearer language,
-        and a more grounded basis for decision-making.
-      </p>
-
-      <h2 class="reveal-on-scroll">Workshops</h2>
-
-      <p class="reveal-on-scroll">
-        Workshops are designed to turn intent into action. They are hands-on,
-        context-aware, and grounded in enterprise realities.
-      </p>
-
-      <ul class="plain-list">
-        <li class="reveal-on-scroll">AI adoption in real workflows</li>
-        <li class="reveal-on-scroll">Operating model and governance design</li>
-        <li class="reveal-on-scroll">Metrics, ownership, and accountability</li>
-        <li class="reveal-on-scroll">Moving from pilots to repeatable execution</li>
+      <ul class="about-differentiators">
+        {
+          engagements.whatClientsGet.items.map(({ label, body }) => (
+            <li class="reveal-on-scroll">
+              <h3 class="about-diff-label">{label}</h3>
+              <p>{body}</p>
+            </li>
+          ))
+        }
       </ul>
+    </section>
 
-      <h2 class="reveal-on-scroll">Who this is for</h2>
+    <!-- 4. Example topics -->
+    <section class="exec-section" aria-labelledby="engagements-topics">
+      <h2 id="engagements-topics" class="exec-inline-heading reveal-on-scroll">
+        {engagements.exampleTopics.heading}
+      </h2>
 
-      <p class="reveal-on-scroll">
-        My work is most relevant for leaders operating in large or complex
-        organizations where scale, cost, governance, and risk matter.
-      </p>
+      <ul class="exec-bullets">
+        {
+          engagements.exampleTopics.items.map((topic) => (
+            <li class="reveal-on-scroll">{topic}</li>
+          ))
+        }
+      </ul>
+    </section>
 
-      <h2 class="reveal-on-scroll">Start a conversation</h2>
+    <!-- 5. CTA -->
+    <section class="exec-section exec-cta engagements-cta" aria-labelledby="engagements-cta">
+      <h2 id="engagements-cta" class="exec-inline-heading reveal-on-scroll">
+        {engagements.cta.heading}
+      </h2>
 
-      <p class="reveal-on-scroll">
-        I am open to discussions around leadership roles, advisory engagements,
-        keynotes, and workshops.
-      </p>
+      <p class="exec-cta-lead reveal-on-scroll">{engagements.cta.lead}</p>
 
       <div class="actions reveal-on-scroll">
-        <a class="button primary" href={contactMailtoHref}>
-          Start a conversation
+        <a class="button primary" href={contactMailtoHref}>{engagements.cta.primary.label}</a>
+        <a class="button" href={engagements.cta.secondary.href}>
+          {engagements.cta.secondary.label}
         </a>
-        <a class="button" href="/about">About</a>
-        <a class="button" href="/work">See work</a>
       </div>
-    </div>
+    </section>
   </div>
 </BaseLayout>

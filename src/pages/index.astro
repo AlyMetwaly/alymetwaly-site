@@ -1,36 +1,123 @@
 ---
+import { executive } from "../config/executive";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="AI Transformation. Executed."
-  description="Adoption-first execution, operating models, and measurable value realization."
+  title={`${executive.name} — ${executive.title}`}
+  description={executive.hero.subheadline}
+  landing
 >
-  <div class="hero">
-    <div class="hero-content">
+  <div class="exec-landing">
+    <!-- 1. Hero -->
+    <section class="exec-section exec-hero" aria-labelledby="exec-hero-heading">
       <div class="kicker reveal-on-scroll">
         <span class="kicker-dot"></span>
-        AI operating models · adoption-first execution · measurable impact
+        {executive.hero.kicker} · {executive.regions}
       </div>
 
-      <h1 class="reveal-on-scroll">AI Transformation. Executed.</h1>
+      <h1 id="exec-hero-heading" class="reveal-on-scroll">{executive.hero.headline}</h1>
 
-      <p class="reveal-on-scroll">
-        I help leaders in large organizations turn AI ambition into operational reality
-        by designing operating models that drive real adoption, enablement, and
-        measurable impact.
-      </p>
+      <p class="exec-lead reveal-on-scroll">{executive.hero.subheadline}</p>
 
-      <p class="reveal-on-scroll">
-        Adoption asks “are people using AI?” Enablement asks “can they use it
-        effectively?” Transformation asks “has the organization actually changed?”
-      </p>
+      <p class="exec-credibility reveal-on-scroll">{executive.hero.credibility}</p>
 
       <div class="actions reveal-on-scroll">
-        <a class="button primary" href="/engagements">Work with me</a>
-        <a class="button" href="/insights">Read insights</a>
-        <a class="button" href="/about">About</a>
+        <a class="button primary" href={executive.hero.cta.primary.href}>
+          {executive.hero.cta.primary.label}
+        </a>
+        <a class="button" href={executive.hero.cta.secondary.href}>
+          {executive.hero.cta.secondary.label}
+        </a>
       </div>
-    </div>
+    </section>
+
+    <!-- 2. Proof of impact strip -->
+    <section class="proof-strip" aria-label="Proof of impact">
+      <ul class="proof-grid">
+        {
+          executive.proof.metrics.map((m) => (
+            <li class="proof-card reveal-on-scroll">
+              <span class="proof-value">{m.value}</span>
+              <span class="proof-line">{m.line}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- 3. What I do -->
+    <section class="exec-section" aria-labelledby="what-i-do-heading">
+      <h2 id="what-i-do-heading" class="exec-inline-heading reveal-on-scroll">
+        {executive.whatIDo.heading}
+      </h2>
+
+      <ul class="exec-bullets">
+        {
+          executive.whatIDo.bullets.map((bullet) => (
+            <li class="reveal-on-scroll">{bullet}</li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- 4. Selected impact -->
+    <section class="exec-section" aria-labelledby="cases-heading">
+      <h2 id="cases-heading" class="exec-inline-heading reveal-on-scroll">
+        {executive.cases.heading}
+      </h2>
+
+      <ul class="case-grid">
+        {
+          executive.cases.items.map((item) => (
+            <li class="reveal-on-scroll">
+              <a class="case-card" href={item.href}>
+                <h3 class="case-title">{item.title}</h3>
+                <p class="case-desc">{item.description}</p>
+                <ul class="case-metrics" aria-label="Key metrics">
+                  {item.metrics.map((metric) => (
+                    <li>{metric}</li>
+                  ))}
+                </ul>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- 5. Executive summary -->
+    <section class="exec-section" aria-labelledby="summary-heading">
+      <div class="exec-summary-box reveal-on-scroll">
+        <h2 id="summary-heading" class="exec-summary-heading">
+          {executive.summary.heading}
+        </h2>
+        <ul class="exec-summary-list">
+          {
+            executive.summary.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. Call to action -->
+    <section
+      id="contact"
+      class="exec-section exec-cta"
+      aria-labelledby="cta-heading"
+    >
+      <h2 id="cta-heading" class="exec-inline-heading reveal-on-scroll">
+        {executive.cta.heading}
+      </h2>
+      <p class="exec-cta-lead reveal-on-scroll">{executive.cta.lead}</p>
+
+      <div class="actions reveal-on-scroll">
+        <a class="button primary" href={executive.cta.primary.href}>
+          {executive.cta.primary.label}
+        </a>
+      </div>
+    </section>
   </div>
 </BaseLayout>

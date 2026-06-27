@@ -1,8 +1,11 @@
 ---
-title: "AI Adoption vs AI Enablement vs AI Transformation"
+title: "Adoption, Enablement, and Transformation Are Not the Same Bet"
+preview: "Three terms. Three management systems. Most organizations conflate them—and measure the wrong one."
+category: "AI Transformation"
 description: "Three terms that get mixed. Three different management problems."
 pubDate: 2026-04-29
 draft: false
+sortOrder: 1
 tags: ["adoption", "enablement", "transformation", "operating-model"]
 ---
 
